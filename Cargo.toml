@@ -1,0 +1,28 @@
+[package]
+name = "demo_web_zip_wasm"
+description = "A simple example program for creating ZIP archives running in the browser using WebAssembly."
+version = "0.2.0"
+edition = "2021"
+authors = ["Alexandr Matkin <mae664128@gmail.com>"]
+rust-version = "1.76"
+repository = "https://github.com/MAE664128/demo_web_zip_wasm"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+yew = { version = "0.21.0", features = ["csr"] }
+web-sys = { version = "0.3.69", features = [
+    "File", "DragEvent", "DataTransfer", "ReadableStream", "ReadableStreamDefaultReader"
+] }
+chrono = { version = "0.4", features = ["wasmbind"] }
+ryu = "1.0.17"
+zip = { version = "1.2.3", default-features = false, features = ["deflate", "aes-crypto"] }
+gloo-file = "0.3.0"
+
+
+[profile.release]
+panic = 'abort'
+codegen-units = 1
+#opt-level = 'z'
+opt-level = 's'
+lto = true
